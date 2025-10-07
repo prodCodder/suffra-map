@@ -52,6 +52,7 @@ const suscriberUser = async (req, res, next) => {
         await Users.findByIdAndUpdate(
             user.id, 
             {role: subscriber}, 
+            {isSuscriber: true}, 
             {isActive: true}, 
             {new: true}
         );
