@@ -21,7 +21,7 @@ const getAllUser = async(req, res, next) => {
 }
 
 const activateUser = async (req, res, next) => {
-    try {
+    try {   
         verifyAdmin(req, res, next);
 
         // Trouver si l'utilisateur existe 
@@ -31,6 +31,27 @@ const activateUser = async (req, res, next) => {
         // Mettre à jour l'état activé de l'utilisateur
         await Users.findByIdAndUpdate(
             user.id, 
+            {isActive: true}, 
+            {new: true}
+        );
+        res.status(200).json("Compte de "+ user.username +" activé")
+    } catch(error) {
+        next(createError(500, error.message))
+    }
+}
+
+const suscriberUser = async (req, res, next) => {
+    try {   
+        verifyAdmin(req, res, next);
+
+        // Trouver si l'utilisateur existe 
+        const user = await Users.findById(req.params.id);
+        if(!user) return next(createError(404, 'User not found'))
+
+        // Mettre à jour l'état activé de l'utilisateur
+        await Users.findByIdAndUpdate(
+            user.id, 
+            {isActive: subscriber}, 
             {isActive: true}, 
             {new: true}
         );
@@ -61,4 +82,5 @@ module.exports = {
     getAllUser,
     activateUser,
     deleteUser,
+    suscriberUser
 }

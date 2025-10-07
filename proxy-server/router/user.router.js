@@ -22,6 +22,7 @@ router.put('/desactivate/:id', verifyToken, UserController.desactivateUser)
 router.get('/all/:id', verifyToken, UserControllerAdmin.getAllUser)
 router.delete('/delete/:id', verifyToken, UserControllerAdmin.deleteUser)
 router.put('/activate/:id', verifyToken, UserControllerAdmin.activateUser)
+router.put('/suscriber/:id', verifyToken, UserControllerAdmin.suscriberUser)
 
 
 module.exports = router;    
