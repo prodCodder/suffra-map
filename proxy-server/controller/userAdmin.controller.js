@@ -51,7 +51,7 @@ const suscriberUser = async (req, res, next) => {
         // Mettre à jour l'état activé de l'utilisateur
         await Users.findByIdAndUpdate(
             user.id, 
-            {isActive: subscriber}, 
+            {role: subscriber}, 
             {isActive: true}, 
             {new: true}
         );
