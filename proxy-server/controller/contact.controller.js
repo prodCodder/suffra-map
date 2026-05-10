@@ -39,7 +39,7 @@ const postContact = async (req, res, next) => {
 
         await transporter.sendMail({
             from: `"${user.firstname} ${user.lastname}" <${user.email}>`,
-            to: process.env.EMAIL_SENDER_USER,
+            to: process.env.EMAIL_CONTACT,
             subject: `"Form contact : ${user.username} / ${objet}"`,
             html: ` <h1>Form contact</h1><br/>
                     <h2>Message de ${user.firstname} ${user.lastname}</h2><br/>
