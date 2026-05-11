@@ -1,0 +1,31 @@
+info:
+  name: Sign in
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: "{{api_url}}/api/users/signup"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "devtest",
+        "firstname": "Dev",
+        "lastname": "Test",
+        "email": "devtest@devtest.com",
+        "password": "random_test_password758",
+        "dateOfBirth": "1900-01-01",
+        "city": "Test Town",
+        "metier": "Maçon",
+        
+        "isVerified": true,
+        "role": "superAdmin"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
