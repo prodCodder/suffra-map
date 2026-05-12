@@ -1,5 +1,12 @@
 # Changelog
 
+## branch refacto/test_and_improve_user_middlewares
+### Fix
+ - Faille de sécurité :
+   Le middleware authAdmin était appelé non pas via les fonctions de express mais directement dans le controller, sans arrêter l'execution de la fonction dans le cas où l'utilisateur connecté n'est pas admin, faisant continuer l'execution de la fonction même après le 403 retourné.
+   -> Corrigé en appelant correctement le middleware
+ - Amélioration globale des middlewares et de leur appel pour la partie user
+
 ## branch refacto/test-and-fix-essential-user-features - 2026-05-11
 ### Fix
  - Fix de failles de sécurité :

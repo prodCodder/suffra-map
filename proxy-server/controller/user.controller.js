@@ -82,9 +82,6 @@ const verifySignUp = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-    
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -149,9 +146,6 @@ const logout = (req, res) => {
 
 const updateUser = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-        
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -169,9 +163,6 @@ const updateUser = async (req, res, next) => {
 
 const desactivateUser = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-            
         // Trouver l'utilisateur connecté
         const userToken = await Users.findById(req.user.id);
         if(!userToken) return next(createError(404, 'User not found'))
