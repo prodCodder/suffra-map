@@ -17,8 +17,14 @@ const signUp = async (req, res, next) => {
 
         // Créer un user à partir du body de la request
         const user = await Users.create({
-            ...req.body,
-            password: passwordHashed
+            username: req.body.username,
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: passwordHashed,
+            dateOfBirth: req.body.dateOfBirth,
+            profession: req.body.metier,
+            city: req.body.city
         });
 
         const token = jwt.sign({ id: user._id}, ENV.JWT_TOKEN, { expiresIn: "5m"})
@@ -27,9 +33,9 @@ const signUp = async (req, res, next) => {
         console.log("Tentative d'envoi de mail à :", user.email)
         await sendEmail(user, token)
 
-        res.status(201).json({
+        res.status(200).json({
             message: 'user created',
-            user
+            user: {...user._doc, password: undefined}
         })
     } catch(error) {
         if (error.name === 'ValidationError') {
@@ -76,9 +82,6 @@ const verifySignUp = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-    
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -98,11 +101,13 @@ const login = async (req, res, next) => {
     try {
         // Vérifier si le mail de l'utilisateur existe
         const user = await Users.findOne({email: req.body.email});
-        if(!user) return next(createError(404, "User not found"));
+        if(!user) return next(createError(401, "Login failed, please check email or password"));
 
         // Vérifier si le mdp correspond bien au mdp existant
         const comparePassword = await bcrypt.compare(req.body.password, user.password);
-        if(!comparePassword) return next(createError(400, "Wrong password !"))
+        if(!comparePassword) return next(createError(401, "Login failed, please check email or password"))
+
+        if (!user.isVerified) return next(createError(401, "Please confirm your signup"))
         
         // Authentification réussi : 
         // Générer un token 
@@ -141,9 +146,6 @@ const logout = (req, res) => {
 
 const updateUser = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-        
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -161,9 +163,6 @@ const updateUser = async (req, res, next) => {
 
 const desactivateUser = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
-            
         // Trouver l'utilisateur connecté
         const userToken = await Users.findById(req.user.id);
         if(!userToken) return next(createError(404, 'User not found'))
@@ -193,7 +192,7 @@ const desactivateUser = async (req, res, next) => {
 
 // Route pour charger les nuances politiques des candidats
 const getAllProfession = async (req, res, next) => {
-    const filepath = path.resolve(dirname, '../parse/json/all_metiers.json');
+    const filepath = path.resolve(dirname, '../JSON_files/all_professions.json');
       
     if (!fs.existsSync(filepath)) {
     return res.status(404).json({ 

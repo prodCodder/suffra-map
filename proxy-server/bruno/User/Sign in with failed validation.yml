@@ -1,0 +1,28 @@
+info:
+  name: Sign in with failed validation
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{api_url}}/api/users/signup"
+  body:
+    type: json
+    data: |-
+      {
+        "username": "a",
+        "firstname": "b",
+        "lastname": "c",
+        "email": "devtest",
+        "password": "random_test_password758",
+        "dateOfBirth": "1850-01-01",
+        "city": "Test Town",
+        "metier": "Maçon"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

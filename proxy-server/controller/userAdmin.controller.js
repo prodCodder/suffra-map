@@ -7,8 +7,6 @@ const Users     = require('../models/user.model');
 
 const getAllUser = async(req, res, next) => {
     try {
-        verifyAdmin(req, res, next);
-        
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -21,9 +19,7 @@ const getAllUser = async(req, res, next) => {
 }
 
 const activateUser = async (req, res, next) => {
-    try {   
-        verifyAdmin(req, res, next);
-
+    try {
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -41,9 +37,7 @@ const activateUser = async (req, res, next) => {
 }
 
 const suscriberUser = async (req, res, next) => {
-    try {   
-        verifyAdmin(req, res, next);
-
+    try {
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
@@ -64,8 +58,6 @@ const suscriberUser = async (req, res, next) => {
 
 const deleteUser = async (req, res, next) => {
     try {
-        verifyAdmin(req, res, next);
-        
         // Trouvez si l'utilisateur existe 
         const userReq = await Users.findById(req.params.id);
         if(!userReq) return next(createError(404, 'User not found'))

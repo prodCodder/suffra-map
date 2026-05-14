@@ -19,7 +19,6 @@ const Login = (dataForm) => {
 
     const [maj, setMaj] = useState('');
     const [formData, setFormData] = useState({});
-    const [birthdate, setBirthdate] = useState('');
 
     const formatDate = (date) => {
         if (!date || typeof date !== 'string') return "";
@@ -30,15 +29,16 @@ const Login = (dataForm) => {
     useEffect(() => {
         if (!auth) return;
         const birthdateFormatted = formatDate(auth?.dateOfBirth);
-        setBirthdate(birthdateFormatted);
 
         setFormData({
-            username: auth?.username || "",
-            email: auth?.email || "",
-            firstname: auth?.firstname || "",
-            lastname: auth?.lastname || "",
-            dateOfBirth: birthdate || "",
-            city: auth?.city || "",
+            username: auth?.username ?? "",
+            email: auth?.email ?? "",
+            firstname: auth?.firstname ?? "",
+            lastname: auth?.lastname ?? "",
+            dateOfBirth: birthdateFormatted ?? "",
+            city: auth?.city ?? "",
+            profession: auth?.profession ?? "",
+            departement: auth.city?.slice(0, 2)
         });
     }, [auth])
 
@@ -157,8 +157,8 @@ const Login = (dataForm) => {
                             id: "metier",
                             change : profilHandleChange,
                             isRequired: false,
-                            placeholder: formData.metier,
-                            selectedValue: formData.metier,
+                            placeholder: formData.profession,
+                            selectedValue: formData.profession,
                             data: metiers?.map(m => ({ value: m.code_metier, label: m.libelle }))
                         },
                         {
@@ -166,9 +166,9 @@ const Login = (dataForm) => {
                             id: "departement",
                             change : profilHandleChange,
                             isRequired: false,
-                            placeholder: formData.city?.slice(0, 2),
-                            data: departements,
+                            placeholder: formData.departement,
                             selectedValue: formData.departement,
+                            data: departements,
                             nextSelect:[
                                 {
                                     name: "Ville",

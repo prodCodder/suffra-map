@@ -3,6 +3,7 @@ const express = require('express');
 // Création  d'un router express
 const router = express.Router();
 const verifyToken = require('../middleware/auth')
+const verifyAdmin = require('../middleware/authAdmin')
 
 const UserController = require('../controller/user.controller')
 const UserControllerAdmin = require('../controller/userAdmin.controller')
@@ -14,15 +15,20 @@ router.post('/logout', UserController.logout)
 router.get('/verify/', UserController.verifyUser)
 router.get('/profession', UserController.getAllProfession)
 router.get('/signup/verify/:token', UserController.verifySignUp)
-router.get('/getbyid/:id', verifyToken, UserController.getById)
-router.patch('/update/:id', verifyToken, UserController.updateUser)
-router.put('/desactivate/:id', verifyToken, UserController.desactivateUser)
+
+router.use(verifyToken)
+
+router.get('/getbyid/:id', UserController.getById)
+router.patch('/update/:id', UserController.updateUser)
+router.put('/desactivate/:id', UserController.desactivateUser)
+
+router.use(verifyAdmin)
 
 // Admin controller
-router.get('/all/:id', verifyToken, UserControllerAdmin.getAllUser)
-router.delete('/delete/:id', verifyToken, UserControllerAdmin.deleteUser)
-router.put('/activate/:id', verifyToken, UserControllerAdmin.activateUser)
-router.put('/suscriber/:id', verifyToken, UserControllerAdmin.suscriberUser)
+router.get('/all/:id', UserControllerAdmin.getAllUser)
+router.delete('/delete/:id', UserControllerAdmin.deleteUser)
+router.put('/activate/:id', UserControllerAdmin.activateUser)
+router.put('/suscriber/:id', UserControllerAdmin.suscriberUser)
 
 
 module.exports = router;    

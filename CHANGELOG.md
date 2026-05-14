@@ -1,5 +1,22 @@
 # Changelog
 
+## branch refacto/test_fix_and_improve_user_features_and_middlewares
+### Fix
+ - Failles de sécurité corrigées :
+   Middleware :
+     - authAdmin était appelé non pas via les fonctions de express mais directement dans le controller, sans arrêter l'execution de la fonction dans le cas où l'utilisateur connecté n'est pas admin, faisant continuer l'execution de la fonction même après le 403 retourné.
+   register : 
+     - Pas de mention explicite des champs quand on créer un user et possibilité de mettre isVerified à true pour contourner la vérification par mail, voir de se créer un compte avec le role qu'on veut.
+     - retourne le mot de passe hashé au client après création de l'utilisateur (ex: admin...).
+   login :
+     - Ne vérifie par le isVerified, donc encore possible de contourner la vérif par mail.
+     - Retourne des codes et messages différents selon la raison de l'échec de login, donnant des indices aux éventuels hackers qui essayent d'accéder à un compte.
+ - Fix de minLenght au lieu de minLength dans le user schema, et regex manquante sur email.
+ - Amélioration globale des middlewares et de leur appel pour la partie user.
+ - Front : Fix de certaines erreurs dans l'inscriptions, connexion, affichage du profil une fois connecté
+### Change
+ - La route /api/users/profession se base sur un JSON accessible et présent dans le repo
+
 ## branch refacto/dockerize-and-fix - 2026-05-07
 ### Add
  - Dockerisation of project, to allow easily run it
