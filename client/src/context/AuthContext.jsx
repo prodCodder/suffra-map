@@ -107,7 +107,6 @@ export const AuthProvider = ({ children }) => {
       if(status === 200) {
         setAuth(data.others);
         setIsLoading(false);
-        setSession(true);    
         setErrMsg("Mail envoyé !"); 
       }
       if(status === 400) setErrMsg("Erreur dans les champs remplis");

@@ -17,16 +17,11 @@ const SignUp = () => {
     
     // Navigate
     const navigate = useNavigate();
-
     
 
     useEffect(() => {
         loadMetiers();
     }, [])
-    
-    useEffect(() => {
-        console.log(formData);
-    }, [formData])
 
     useEffect(() => {
         if (loading && !session) {

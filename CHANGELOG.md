@@ -13,6 +13,7 @@
      - Retourne des codes et messages différents selon la raison de l'échec de login, donnant des indices aux éventuels hackers qui essayent d'accéder à un compte.
  - Fix de minLenght au lieu de minLength dans le user schema, et regex manquante sur email.
  - Amélioration globale des middlewares et de leur appel pour la partie user.
+ - Front : Fix de certaines erreurs dans l'inscriptions, connexion, affichage du profil une fois connecté
 ### Change
  - La route /api/users/profession se base sur un JSON accessible et présent dans le repo
 

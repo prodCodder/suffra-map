@@ -33,7 +33,7 @@ const signUp = async (req, res, next) => {
         console.log("Tentative d'envoi de mail à :", user.email)
         await sendEmail(user, token)
 
-        res.status(201).json({
+        res.status(200).json({
             message: 'user created',
             user: {...user._doc, password: undefined}
         })
