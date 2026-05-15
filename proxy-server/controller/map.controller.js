@@ -1,5 +1,7 @@
 const createError = require('../middleware/error')
 const fs = require('fs')
+const path = require('path');
+const dirname = path.dirname(__filename);
 
 const getMapByDepartement = async (req, res, next) => {
     const { departement } = req.query;
@@ -19,7 +21,7 @@ const getMapByDepartement = async (req, res, next) => {
 }
 
 const getAllDepartement = async (req, res, next) => {
-    const filepath = `./parse/json/all_departement.json`;
+    const filepath = path.resolve(dirname, '../JSON_files/all_departements.json');
     if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier de tous les départements introuvable.` });
     
     try {

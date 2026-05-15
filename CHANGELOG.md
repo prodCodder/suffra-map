@@ -1,5 +1,9 @@
 # Changelog
 
+## feature/elections-and-map-management
+### Fix
+ - Add a visible json for all departements readable by API
+
 ## branch refacto/test_fix_and_improve_user_features_and_middlewares
 ### Fix
  - Failles de sécurité corrigées :

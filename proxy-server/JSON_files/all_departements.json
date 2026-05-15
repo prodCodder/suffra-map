@@ -1,0 +1,818 @@
+[
+    {
+        "numero": "01",
+        "pos": [
+            46,
+            5.2
+        ],
+        "nom": "Ain"
+    },
+    {
+        "numero": "02",
+        "pos": [
+            49.33,
+            3.33
+        ],
+        "nom": "Aisne"
+    },
+    {
+        "numero": "03",
+        "pos": [
+            46.23,
+            3.11
+        ],
+        "nom": "Allier"
+    },
+    {
+        "numero": "04",
+        "pos": [
+            44,
+            6
+        ],
+        "nom": "Alpes-de-Haute-Provence"
+    },
+    {
+        "numero": "05",
+        "pos": [
+            44.6636,
+            6.15
+        ],
+        "nom": "Hautes-Alpes"
+    },
+    {
+        "numero": "06",
+        "pos": [
+            43.9375,
+            7.1164
+        ],
+        "nom": "Alpes-Maritimes"
+    },
+    {
+        "numero": "07",
+        "pos": [
+            44.7517,
+            4.4247
+        ],
+        "nom": "Ardèche"
+    },
+    {
+        "numero": "08",
+        "pos": [
+            49.6156,
+            4.6408
+        ],
+        "nom": "Ardennes"
+    },
+    {
+        "numero": "09",
+        "pos": [
+            42.9208,
+            1.5
+        ],
+        "nom": "Ariège"
+    },
+    {
+        "numero": "10",
+        "pos": [
+            48.2,
+            4
+        ],
+        "nom": "Aube"
+    },
+    {
+        "numero": "11",
+        "pos": [
+            43.1475,
+            2.4417
+        ],
+        "nom": "Aude"
+    },
+    {
+        "numero": "12",
+        "pos": [
+            44.2789,
+            2.4
+        ],
+        "nom": "Aveyron"
+    },
+    {
+        "numero": "13",
+        "pos": [
+            43.5347,
+            5.0453
+        ],
+        "nom": "Bouches-du-Rhône"
+    },
+    {
+        "numero": "14",
+        "pos": [
+            49.0958,
+            -0.3708
+        ],
+        "nom": "Calvados"
+    },
+    {
+        "numero": "15",
+        "pos": [
+            45.0333,
+            2.6667
+        ],
+        "nom": "Cantal"
+    },
+    {
+        "numero": "16",
+        "pos": [
+            45.6833,
+            0.25
+        ],
+        "nom": "Charente"
+    },
+    {
+        "numero": "17",
+        "pos": [
+            45.9333,
+            -0.95
+        ],
+        "nom": "Charente-Maritime"
+    },
+    {
+        "numero": "18",
+        "pos": [
+            47.0833,
+            2.3
+        ],
+        "nom": "Cher"
+    },
+    {
+        "numero": "19",
+        "pos": [
+            45.2,
+            1.8
+        ],
+        "nom": "Corrèze"
+    },
+    {
+        "numero": "2A",
+        "pos": [
+            41.9167,
+            8.7333
+        ],
+        "nom": "Corse-du-Sud"
+    },
+    {
+        "numero": "2B",
+        "pos": [
+            42.5,
+            9.25
+        ],
+        "nom": "Haute-Corse"
+    },
+    {
+        "numero": "21",
+        "pos": [
+            47.25,
+            4.8333
+        ],
+        "nom": "Côte-d'Or"
+    },
+    {
+        "numero": "22",
+        "pos": [
+            48.26,
+            -2.8
+        ],
+        "nom": "Côtes-d'Armor"
+    },
+    {
+        "numero": "23",
+        "pos": [
+            46.1667,
+            2.1
+        ],
+        "nom": "Creuse"
+    },
+    {
+        "numero": "24",
+        "pos": [
+            45.1667,
+            0.7167
+        ],
+        "nom": "Dordogne"
+    },
+    {
+        "numero": "25",
+        "pos": [
+            47.25,
+            6.25
+        ],
+        "nom": "Doubs"
+    },
+    {
+        "numero": "26",
+        "pos": [
+            44.75,
+            5.25
+        ],
+        "nom": "Drôme"
+    },
+    {
+        "numero": "27",
+        "pos": [
+            49.0833,
+            1.2
+        ],
+        "nom": "Eure"
+    },
+    {
+        "numero": "28",
+        "pos": [
+            48.45,
+            1.5
+        ],
+        "nom": "Eure-et-Loir"
+    },
+    {
+        "numero": "29",
+        "pos": [
+            48.15,
+            -4.05
+        ],
+        "nom": "Finistère"
+    },
+    {
+        "numero": "30",
+        "pos": [
+            43.9833,
+            4.1833
+        ],
+        "nom": "Gard"
+    },
+    {
+        "numero": "31",
+        "pos": [
+            43.5,
+            1.5
+        ],
+        "nom": "Haute-Garonne"
+    },
+    {
+        "numero": "32",
+        "pos": [
+            43.7,
+            0.6
+        ],
+        "nom": "Gers"
+    },
+    {
+        "numero": "33",
+        "pos": [
+            44.8333,
+            -0.5667
+        ],
+        "nom": "Gironde"
+    },
+    {
+        "numero": "34",
+        "pos": [
+            43.6,
+            3.25
+        ],
+        "nom": "Hérault"
+    },
+    {
+        "numero": "35",
+        "pos": [
+            48.0833,
+            -1.6833
+        ],
+        "nom": "Ille-et-Vilaine"
+    },
+    {
+        "numero": "36",
+        "pos": [
+            46.8,
+            1.7
+        ],
+        "nom": "Indre"
+    },
+    {
+        "numero": "37",
+        "pos": [
+            47.3333,
+            0.7
+        ],
+        "nom": "Indre-et-Loire"
+    },
+    {
+        "numero": "38",
+        "pos": [
+            45.25,
+            5.5
+        ],
+        "nom": "Isère"
+    },
+    {
+        "numero": "39",
+        "pos": [
+            46.75,
+            5.75
+        ],
+        "nom": "Jura"
+    },
+    {
+        "numero": "40",
+        "pos": [
+            44,
+            -0.75
+        ],
+        "nom": "Landes"
+    },
+    {
+        "numero": "41",
+        "pos": [
+            47.6,
+            1.3
+        ],
+        "nom": "Loir-et-Cher"
+    },
+    {
+        "numero": "42",
+        "pos": [
+            45.5,
+            4.25
+        ],
+        "nom": "Loire"
+    },
+    {
+        "numero": "43",
+        "pos": [
+            45.05,
+            3.9
+        ],
+        "nom": "Haute-Loire"
+    },
+    {
+        "numero": "44",
+        "pos": [
+            47.3,
+            -1.5
+        ],
+        "nom": "Loire-Atlantique"
+    },
+    {
+        "numero": "45",
+        "pos": [
+            47.9,
+            2
+        ],
+        "nom": "Loiret"
+    },
+    {
+        "numero": "46",
+        "pos": [
+            44.6,
+            1.6
+        ],
+        "nom": "Lot"
+    },
+    {
+        "numero": "47",
+        "pos": [
+            44.4,
+            0.5
+        ],
+        "nom": "Lot-et-Garonne"
+    },
+    {
+        "numero": "48",
+        "pos": [
+            44.5,
+            3.5
+        ],
+        "nom": "Lozère"
+    },
+    {
+        "numero": "49",
+        "pos": [
+            47.4,
+            -0.5
+        ],
+        "nom": "Maine-et-Loire"
+    },
+    {
+        "numero": "50",
+        "pos": [
+            49,
+            -1.3
+        ],
+        "nom": "Manche"
+    },
+    {
+        "numero": "51",
+        "pos": [
+            48.95,
+            4.3
+        ],
+        "nom": "Marne"
+    },
+    {
+        "numero": "52",
+        "pos": [
+            48.1,
+            5.3
+        ],
+        "nom": "Haute-Marne"
+    },
+    {
+        "numero": "53",
+        "pos": [
+            48.2,
+            -0.8
+        ],
+        "nom": "Mayenne"
+    },
+    {
+        "numero": "54",
+        "pos": [
+            48.7,
+            6.2
+        ],
+        "nom": "Meurthe-et-Moselle"
+    },
+    {
+        "numero": "55",
+        "pos": [
+            49,
+            5.3
+        ],
+        "nom": "Meuse"
+    },
+    {
+        "numero": "56",
+        "pos": [
+            47.8,
+            -2.8
+        ],
+        "nom": "Morbihan"
+    },
+    {
+        "numero": "57",
+        "pos": [
+            49,
+            6.5
+        ],
+        "nom": "Moselle"
+    },
+    {
+        "numero": "58",
+        "pos": [
+            47,
+            3.5
+        ],
+        "nom": "Nièvre"
+    },
+    {
+        "numero": "59",
+        "pos": [
+            50.5,
+            3.2
+        ],
+        "nom": "Nord"
+    },
+    {
+        "numero": "60",
+        "pos": [
+            49.4,
+            2.5
+        ],
+        "nom": "Oise"
+    },
+    {
+        "numero": "61",
+        "pos": [
+            48.5,
+            0.1
+        ],
+        "nom": "Orne"
+    },
+    {
+        "numero": "62",
+        "pos": [
+            50.5,
+            2.3
+        ],
+        "nom": "Pas-de-Calais"
+    },
+    {
+        "numero": "63",
+        "pos": [
+            45.7,
+            3.1
+        ],
+        "nom": "Puy-de-Dôme"
+    },
+    {
+        "numero": "64",
+        "pos": [
+            43.3,
+            -0.5
+        ],
+        "nom": "Pyrénées-Atlantiques"
+    },
+    {
+        "numero": "65",
+        "pos": [
+            43,
+            0
+        ],
+        "nom": "Hautes-Pyrénées"
+    },
+    {
+        "numero": "66",
+        "pos": [
+            42.6,
+            2.8
+        ],
+        "nom": "Pyrénées-Orientales"
+    },
+    {
+        "numero": "67",
+        "pos": [
+            48.6,
+            7.6
+        ],
+        "nom": "Bas-Rhin"
+    },
+    {
+        "numero": "68",
+        "pos": [
+            47.8,
+            7.3
+        ],
+        "nom": "Haut-Rhin"
+    },
+    {
+        "numero": "69",
+        "pos": [
+            45.75,
+            4.8
+        ],
+        "nom": "Rhône"
+    },
+    {
+        "numero": "70",
+        "pos": [
+            47.7,
+            6.3
+        ],
+        "nom": "Haute-Saône"
+    },
+    {
+        "numero": "71",
+        "pos": [
+            46.7,
+            4.5
+        ],
+        "nom": "Saône-et-Loire"
+    },
+    {
+        "numero": "72",
+        "pos": [
+            47.9,
+            0.2
+        ],
+        "nom": "Sarthe"
+    },
+    {
+        "numero": "73",
+        "pos": [
+            45.5,
+            6.3
+        ],
+        "nom": "Savoie"
+    },
+    {
+        "numero": "74",
+        "pos": [
+            46,
+            6.5
+        ],
+        "nom": "Haute-Savoie"
+    },
+    {
+        "numero": "75",
+        "pos": [
+            48.8566,
+            2.3522
+        ],
+        "nom": "Paris"
+    },
+    {
+        "numero": "76",
+        "pos": [
+            49.5,
+            0.9
+        ],
+        "nom": "Seine-Maritime"
+    },
+    {
+        "numero": "77",
+        "pos": [
+            48.6,
+            2.9
+        ],
+        "nom": "Seine-et-Marne"
+    },
+    {
+        "numero": "78",
+        "pos": [
+            48.8,
+            1.9
+        ],
+        "nom": "Yvelines"
+    },
+    {
+        "numero": "79",
+        "pos": [
+            46.6,
+            -0.3
+        ],
+        "nom": "Deux-Sèvres"
+    },
+    {
+        "numero": "80",
+        "pos": [
+            49.9,
+            2.3
+        ],
+        "nom": "Somme"
+    },
+    {
+        "numero": "81",
+        "pos": [
+            43.9,
+            2.1
+        ],
+        "nom": "Tarn"
+    },
+    {
+        "numero": "82",
+        "pos": [
+            44,
+            1.2
+        ],
+        "nom": "Tarn-et-Garonne"
+    },
+    {
+        "numero": "83",
+        "pos": [
+            43.4,
+            6.2
+        ],
+        "nom": "Var"
+    },
+    {
+        "numero": "84",
+        "pos": [
+            44,
+            5
+        ],
+        "nom": "Vaucluse"
+    },
+    {
+        "numero": "85",
+        "pos": [
+            46.7,
+            -1.4
+        ],
+        "nom": "Vendée"
+    },
+    {
+        "numero": "86",
+        "pos": [
+            46.6,
+            0.4
+        ],
+        "nom": "Vienne"
+    },
+    {
+        "numero": "87",
+        "pos": [
+            45.8,
+            1.2
+        ],
+        "nom": "Haute-Vienne"
+    },
+    {
+        "numero": "88",
+        "pos": [
+            48.2,
+            6.5
+        ],
+        "nom": "Vosges"
+    },
+    {
+        "numero": "89",
+        "pos": [
+            47.8,
+            3.6
+        ],
+        "nom": "Yonne"
+    },
+    {
+        "numero": "90",
+        "pos": [
+            47.6,
+            6.9
+        ],
+        "nom": "Territoire de Belfort"
+    },
+    {
+        "numero": "91",
+        "pos": [
+            48.5,
+            2.2
+        ],
+        "nom": "Essonne"
+    },
+    {
+        "numero": "92",
+        "pos": [
+            48.9,
+            2.2
+        ],
+        "nom": "Hauts-de-Seine"
+    },
+    {
+        "numero": "93",
+        "pos": [
+            48.9,
+            2.4
+        ],
+        "nom": "Seine-Saint-Denis"
+    },
+    {
+        "numero": "94",
+        "pos": [
+            48.8,
+            2.5
+        ],
+        "nom": "Val-de-Marne"
+    },
+    {
+        "numero": "95",
+        "pos": [
+            49,
+            2.2
+        ],
+        "nom": "Val-d'Oise"
+    },
+    {
+        "numero": "971",
+        "pos": [
+            16.265,
+            -61.551
+        ],
+        "nom": "Guadeloupe"
+    },
+    {
+        "numero": "972",
+        "pos": [
+            14.6415,
+            -61.0242
+        ],
+        "nom": "Martinique"
+    },
+    {
+        "numero": "973",
+        "pos": [
+            4,
+            -53
+        ],
+        "nom": "Guyane"
+    },
+    {
+        "numero": "974",
+        "pos": [
+            -21.1151,
+            55.5364
+        ],
+        "nom": "La Réunion"
+    },
+    {
+        "numero": "976",
+        "pos": [
+            -12.8275,
+            45.1662
+        ],
+        "nom": "Mayotte"
+    },
+    {
+        "numero": "975",
+        "pos": [
+            46.9,
+            -56.3
+        ],
+        "nom": "Saint-Pierre-et-Miquelon"
+    }
+]
