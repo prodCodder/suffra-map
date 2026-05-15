@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const emailRegex = /^(([^<>()\[\]\.,;:\s@"]+(\.[^<>()\[\]\.,;:\s@"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-const userSchema = mongoose.Schema(
+const UsersSchema = mongoose.Schema(
     {
         username:{
             type: String,
@@ -75,4 +75,4 @@ const userSchema = mongoose.Schema(
     }
 )
 
-module.exports = mongoose.model('Users', userSchema)
+module.exports = mongoose.model('Users', UsersSchema)
