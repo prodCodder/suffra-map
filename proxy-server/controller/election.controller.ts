@@ -1,3 +1,6 @@
+import { RequestHandler } from "express";
+import { TAuthRequestHandler } from "../types";
+
 const createError = require('../middleware/error')
 const fs = require('fs')
 const path = require('path');
@@ -7,7 +10,7 @@ const dirname = path.dirname(__filename);
 const Users     = require('../models/user.model');
 
 // Route pour charger les nuances politiques des candidats
-const getAllCandidats = async (req, res, next) => {
+export const getAllCandidats: RequestHandler = async (req, res, next) => {
     const filepath = path.resolve(dirname, '../parse/json/nuance_politique.json');
       
     if (!fs.existsSync(filepath)) {
@@ -20,14 +23,14 @@ const getAllCandidats = async (req, res, next) => {
         const raw = fs.readFileSync(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
         res.json(Object.fromEntries(data));
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les nuances politiques des candidats
 // Si l'utilisateur n'est pas connecté
-const getAllNameElectionsNoConnected = async (req, res, next) => {
+export const getAllNameElectionsNoConnected: RequestHandler = async (req, res, next) => {
     try {
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
 
@@ -39,26 +42,24 @@ const getAllNameElectionsNoConnected = async (req, res, next) => {
 
         const raw = fs.readFileSync(filepath, 'utf-8');
         const data = JSON.parse(raw);
-        const filtered = data.filter(election => election.idName === 'presi2022')
+        const filtered = data.filter((election: any) => election.idName === 'presi2022')
         res.json(filtered);
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les nuances politiques des candidats
 // Si l'utilisateur est connecté
-const getAllNameElectionsConnected = async (req, res, next) => {
+export const getAllNameElectionsConnected: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
         
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
             
         // Vérifier si l'utilisateur est authentifié
-        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
         if (!fs.existsSync(filepath)) {
@@ -69,27 +70,25 @@ const getAllNameElectionsConnected = async (req, res, next) => {
 
         const raw = fs.readFileSync(filepath, 'utf-8');
         const data = JSON.parse(raw);
-        const filtered = data.filter(election => election.type == 'presi')
+        const filtered = data.filter((election: any) => election.type == 'presi')
         res.json(filtered);
         
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les nuances politiques des candidats
 // Si l'utilisateur est connecté
-const getAllNameElectionsMember = async (req, res, next) => {
+export const getAllNameElectionsMember: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
         
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
             
         // Vérifier si l'utilisateur est authentifié
-        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
         if (!fs.existsSync(filepath)) {
@@ -102,13 +101,13 @@ const getAllNameElectionsMember = async (req, res, next) => {
         const data = JSON.parse(raw);
         res.json(data);
         
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les résultats pour un bureau de vote 
-const getElectionByBv = async (req, res, next) => {
+export const getElectionByBv: RequestHandler<{bureauId: string, slug: string}> = async (req, res, next) => {
     const { slug, bureauId } = req.params;
     const { circo, departement } = req.query;
 
@@ -137,13 +136,13 @@ const getElectionByBv = async (req, res, next) => {
     }
 
         return res.json(bureau);
-    } catch (err) {
-        next(createError(500, error.message))
+    } catch (err: any) {
+        next(createError(500, err.message))
     }
 }
 
 // Route non connecté pour charger les résultats d'une élection 
-const getResultElectionNoConnected = async (req, res, next) => {
+export const getResultElectionNoConnected: RequestHandler = async (req, res, next) => {
     const { departement } = req.query;
     console.log('api : ' + departement);
     if (!departement)  return res.status(400).json({ error: 'Département requis' })
@@ -151,32 +150,29 @@ const getResultElectionNoConnected = async (req, res, next) => {
     const filepath = `./parse/json/presi2022/resultats_${departement}.json`;
 
     if (!fs.existsSync(filepath)) {
-        return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
+        return res.status(404).json({ error: `Fichier ${departement} introuvable.` });
     }
     
     try {
         const raw = fs.readFileSync(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
-        data = data.filter(([_, val]) => val.meta["Code du département"] === departement);
+        data = data.filter(([_, val]: any[]) => val.meta["Code du département"] === departement);
         res.json(Object.fromEntries(data));
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
-const getResultElectionConnected = async (req, res, next) => {
+export const getResultElectionConnected: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         const { departement } = req.query;
-
-        // Vérifier si l'utilisateur est connecté 
-        if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
         
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
             
         // Vérifier si l'utilisateur est authentifié
-        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         // Vérifier si le département existe
         if (!departement) return res.status(400).json({ error: 'Département requis' });
@@ -209,30 +205,28 @@ const getResultElectionConnected = async (req, res, next) => {
 
         // Appliquer le filtre
         const filtered = Object.entries(combinedData).filter(
-            ([_, val]) => val.meta["Code du département"] === departement
+            ([_, val]: any[]) => val.meta["Code du département"] === departement
         );
 
         res.json(Object.fromEntries(filtered));
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les résultats d'une élection
 // Si l'utilisateur est membre
-const getResultElectionMember = async (req, res, next) => {
+export const getResultElectionMember: TAuthRequestHandler<{slug: string, id: string}> = async (req, res, next) => {
     const { slug, id } = req.params;
     const { circo, departement } = req.query;
-    
-    // Vérifier si l'utilisateur est connecté 
-    if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
+
         
     // Vérifier si l'utilisateur existe
     const user = await Users.findById(req.params.id);
     if(!user) return next(createError(404, 'User not found'))
         
     // Vérifier si l'utilisateur est authentifié
-    if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+    if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
 
     // Vérifier si l'utilisateur est membre
     if(!user.isSuscriber) return next(createError(403, "Accès refusé - l'utilisateur n'est pas membre"))
@@ -250,27 +244,16 @@ const getResultElectionMember = async (req, res, next) => {
         let data = Object.entries(JSON.parse(raw));
     
         if (departement) {
-        data = data.filter(([_, val]) => val.meta["Code du département"] === departement);
+        data = data.filter(([_, val]: any[]) => val.meta["Code du département"] === departement);
         }
     
         if (circo) {
-        data = data.filter(([_, val]) => val.meta["Code de la circonscription"] === circo);
+        data = data.filter(([_, val]: any[]) => val.meta["Code de la circonscription"] === circo);
         }
     
         res.json(Object.fromEntries(data));
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
-}
-
-module.exports = {
-    getAllNameElectionsNoConnected,
-    getAllNameElectionsConnected,
-    getAllNameElectionsMember,
-    getAllCandidats,
-    getElectionByBv,
-    getResultElectionNoConnected,
-    getResultElectionConnected,
-    getResultElectionMember,
 }
 

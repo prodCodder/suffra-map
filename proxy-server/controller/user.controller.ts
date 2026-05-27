@@ -1,16 +1,18 @@
-const ENV = require('../config/env');
-const bcrypt    = require('bcrypt')
-const jwt      = require('jsonwebtoken')
-const fs = require('fs')
-const path = require('path');
+import { TAuthRequestHandler } from '../types';
+import { RequestHandler } from 'express';
+import ENV from '../config/env';
+import bcrypt from 'bcrypt';
+import jwt, {JwtPayload} from 'jsonwebtoken';
+import fs from 'fs';
+import path from 'path';
 const dirname = path.dirname(__filename);
-const createError = require('../middleware/error')
-const sendEmail = require('../services/nodemailer')
+import createError from '../middleware/error';
+import {Error} from 'mongoose';
 
 // Model
-const Users = require('../models/user.model');
+import Users, { IUser } from '../models/user.model';
 
-const signUp = async (req, res, next) => {
+export const signUp: RequestHandler = async (req, res, next) => {
     try {
         // Créer un mdp crypté à partir du password de la request
         const passwordHashed = await bcrypt.hash(req.body.password, 10);
@@ -31,14 +33,15 @@ const signUp = async (req, res, next) => {
 
         // Envoie d'un mail de confirmation
         console.log("Tentative d'envoi de mail à :", user.email)
-        await sendEmail(user, token)
+        console.log({token})
+        // await sendEmail(user, token)
 
         res.status(200).json({
             message: 'user created',
             user: {...user._doc, password: undefined}
         })
-    } catch(error) {
-        if (error.name === 'ValidationError') {
+    } catch(error: any) {
+        if (error instanceof Error.ValidationError) {
             const messages = Object.values(error.errors).map(err => err.message);
             return res.status(400).json({ error: messages.join(', ') });
         }
@@ -46,25 +49,25 @@ const signUp = async (req, res, next) => {
     }
 }
 
-const verifyUser = async (req, res, next) => {
+export const verifyUser: TAuthRequestHandler = async (req, res, next) => {
     const token = req.cookies.access_token;
     if (!token) return res.status(401).json({ error: "Non authentifié" });
 
     try {
-        const decoded = jwt.verify(token, ENV.JWT_TOKEN);
+        const decoded: any = jwt.verify(token, ENV.JWT_TOKEN);
         res.status(200).json({ message: "Utilisateur connecté", userId: decoded.id });
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
-const verifySignUp = async (req, res, next) => {
-    const token = req.params.token;
+export const verifySignUp: RequestHandler = async (req, res, next) => {
+    const token: string = <string>req.params.token;
     if (!token) return res.status(401).json({ error: "Token absent" });
 
     try {
-        const decoded = jwt.verify(token, ENV.JWT_TOKEN);
-        const user = await Users.findByIdAndUpdate(decoded.id, { isVerified: true }, { new: true });
+        const decoded: JwtPayload = <JwtPayload>jwt.verify(token, ENV.JWT_TOKEN);
+        const user = await Users.findByIdAndUpdate(decoded?.id, { isVerified: true }, { new: true });
 
         if (!user) {
             return res.status(404).json({ error: "Utilisateur introuvable" });
@@ -75,29 +78,29 @@ const verifySignUp = async (req, res, next) => {
             userId: user._id,
             firstname: user.firstname
         });
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
 }
 
-const getById = async (req, res, next) => {
+export const getById: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
             
         // Vérifier si l'utilisateur est authentifié
-        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         // Mettre à jour l'utilisateur avec le body de la request
         const response = await Users.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.status(200).json(response)
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const login = async (req, res, next) => {
+export const login: RequestHandler = async (req, res, next) => {
     try {
         // Vérifier si le mail de l'utilisateur existe
         const user = await Users.findOne({email: req.body.email});
@@ -128,15 +131,15 @@ const login = async (req, res, next) => {
                 httpOnly: true,
                 maxAge: 24*60*60*1000, // 24 Heures
                 secure: false,
-                sameSite: 'Lax',})
+                sameSite: 'lax',})
             .status(200).json({others})
 
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const logout = (req, res) => {
+export const logout: TAuthRequestHandler = (req, res) => {
     res.clearCookie("access_token", {
         httpOnly: true,
         sameSite: 'strict',
@@ -144,27 +147,27 @@ const logout = (req, res) => {
     }).status(200).json({ message: "Déconnexion réussie" });
 }
 
-const updateUser = async (req, res, next) => {
+export const updateUser: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         // Vérifier si l'utilisateur existe
         const user = await Users.findById(req.params.id);
         if(!user) return next(createError(404, 'User not found'))
             
         // Vérifier si l'utilisateur est authentifié
-        if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+        if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         // Mettre à jour l'utilisateur avec le body de la request
         const response = await Users.findByIdAndUpdate(req.params.id, req.body, {new: true});
         res.status(200).json(response)
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const desactivateUser = async (req, res, next) => {
+export const desactivateUser: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         // Trouver l'utilisateur connecté
-        const userToken = await Users.findById(req.user.id);
+        const userToken = await Users.findById(req.body.user.id);
         if(!userToken) return next(createError(404, 'User not found'))
             
         // Trouver si l'utilisateur existe 
@@ -173,7 +176,7 @@ const desactivateUser = async (req, res, next) => {
         
         // Vérifier si l'utilisateur est authentifié
         // Ou si l'utilisateur est admin
-        if( userToken._id.toString() !== user.id.toString() &
+        if( userToken._id.toString() !== user.id.toString() &&
             userToken.role === 'user') {
                 return next(createError(403, 'Access denied'))
         }
@@ -185,13 +188,13 @@ const desactivateUser = async (req, res, next) => {
             {new: true}
         );
         res.status(200).json({message:"User desactivated", userDesactivated})
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
 // Route pour charger les nuances politiques des candidats
-const getAllProfession = async (req, res, next) => {
+export const getAllProfession: TAuthRequestHandler = async (req, res, next) => {
     const filepath = path.resolve(dirname, '../JSON_files/all_professions.json');
       
     if (!fs.existsSync(filepath)) {
@@ -204,19 +207,7 @@ const getAllProfession = async (req, res, next) => {
         const raw = fs.readFileSync(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
         res.json(Object.fromEntries(data));
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
-}
-
-module.exports = {
-    signUp,
-    getById,
-    verifyUser,
-    verifySignUp,
-    login,
-    logout,
-    updateUser,
-    desactivateUser,
-    getAllProfession
 }

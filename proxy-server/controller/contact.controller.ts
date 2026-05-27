@@ -1,13 +1,14 @@
-const createError = require('../middleware/error');
-const nodemailer = require('nodemailer');
-const ENV = require('../config/env')
-const path = require('path');
+import createError from '../middleware/error';
+import nodemailer from 'nodemailer';
+import ENV from '../config/env';
+import path from 'path';
 
 // Model
-const Users = require('../models/user.model');
+import Users from '../models/user.model';
+import { TAuthRequestHandler } from '../types';
 
 // Route pour charger les nuances politiques des candidats
-const postContact = async (req, res, next) => {
+export const postContact: TAuthRequestHandler<{id: string}, {}, {titre: string, message: string, objet: string}> = async (req, res, next) => {
     // Vérifier si le formulaire est complet
     if(!req.body) return res.status(400).json({ error: "Champs des formulaires vides." });
 
@@ -15,16 +16,13 @@ const postContact = async (req, res, next) => {
     if (!titre || !message || !objet) {
         return res.status(400).json({ error: "Tous les champs sont requis." });
     }
-
-    // Vérifier si l'utilisateur est connecté 
-    if(!req.user || !req.user.id) return next(createError(401, 'Authentification requise'))
     
     // Vérifier si l'utilisateur existe
     const user = await Users.findById(req.params.id);
     if(!user) return next(createError(404, 'User not found'))
         
     // Vérifier si l'utilisateur est authentifié
-    if( user._id.toString() !== req.user.id.toString()) return next(createError(403, 'Accès refusé'))
+    if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
 
     try {
         const transporter = nodemailer.createTransport({
@@ -52,11 +50,7 @@ const postContact = async (req, res, next) => {
         });
 
         res.status(200).json({ message: "Message envoyé avec succès." });
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
-}
-
-module.exports = {
-    postContact
 }

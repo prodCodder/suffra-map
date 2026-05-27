@@ -1,5 +1,6 @@
-const nodemailer = require('nodemailer');
-const ENV = require('../config/env')
+import nodemailer from 'nodemailer';
+import ENV from '../config/env';
+import { IUser } from '../models/user.model';
 
 const transporter = nodemailer.createTransport({
     // Configuration du serveur SMTP de Gmail
@@ -12,8 +13,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const sendEmail = async (user, verifyToken) => {
-    verificationLink = `<a href='${ENV.DOMAIN_APP_FRONT}/verify/${verifyToken}'>Vérifier votre mail</a>`
+export const sendEmail = async (user: IUser, verifyToken: string) => {
+    const verificationLink = `<a href='${ENV.DOMAIN_APP_FRONT}/verify/${verifyToken}'>Vérifier votre mail</a>`
     console.log("Envoi de mail via Nodemailer", user.email)
 
     try {
@@ -33,5 +34,3 @@ const sendEmail = async (user, verifyToken) => {
         console.error("Erreur d'envoi d'email :", err)
     }
 }
-
-module.exports = sendEmail;

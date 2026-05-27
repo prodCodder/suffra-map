@@ -1,7 +1,8 @@
-const createError = require('../middleware/error')
-const fs = require('fs')
+import { RequestHandler } from 'express';
+import createError from '../middleware/error';
+import fs from 'fs';
 
-const getMapByDepartement = async (req, res, next) => {
+export const getMapByDepartement: RequestHandler = async (req, res, next) => {
     const { departement } = req.query;
       if (!departement)  return res.status(400).json({ error: 'Département requis' });
       
@@ -13,12 +14,12 @@ const getMapByDepartement = async (req, res, next) => {
         const geojson = JSON.parse(raw);
         res.json(geojson);
     
-      } catch (error) {
+      } catch (error: any) {
         next(createError(500, error.message))
       }
 }
 
-const getAllDepartement = async (req, res, next) => {
+export const getAllDepartement: RequestHandler = async (req, res, next) => {
     const filepath = `./parse/json/all_departement.json`;
     if (!fs.existsSync(filepath))  return res.status(404).json({ error: `Fichier de tous les départements introuvable.` });
     
@@ -26,14 +27,8 @@ const getAllDepartement = async (req, res, next) => {
         const raw = fs.readFileSync(filepath, 'utf-8');
         const data = JSON.parse(raw); 
         res.json(data);
-    } catch (error) {
+    } catch (error: any) {
         next(createError(500, error.message))
     }
-}
-
-
-module.exports = {
-    getMapByDepartement,
-    getAllDepartement,
 }
 
