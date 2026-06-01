@@ -1,5 +1,21 @@
 # Changelog
 
+## branch feature/add_typescript
+### Add
+ - Typescript support :
+   - Add libraries for typescript
+   - Automatically recompile typescript when starting the project
+   - Real time typescript compilation and execution on code update for dev env
+ - Docker compose config files evolution for prod and dev
+ - Readme completion 
+## Refacto
+ - Adapt code to typescript with nodenext and ES2022 :
+  - import/export module instead of require
+  - Mention file extension `.js` when importing modules
+  - Mention file extension `.d.ts` and `type` when importing types
+  - Declare types when it's needed
+
+
 ## branch refacto/test_fix_and_improve_user_features_and_middlewares
 ### Fix
  - Failles de sécurité corrigées :

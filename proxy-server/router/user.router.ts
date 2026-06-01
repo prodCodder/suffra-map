@@ -2,11 +2,11 @@
 import express from 'express';
 // Création  d'un router express
 const app = express.Router();
-import verifyToken from '../middleware/auth';
-import verifyAdmin from '../middleware/authAdmin';
+import verifyToken from '../middleware/auth.js';
+import verifyAdmin from '../middleware/authAdmin.js';
 
-import {signUp, login, logout, verifyUser, getAllProfession, verifySignUp, getById, updateUser, desactivateUser} from '../controller/user.controller';
-import {getAllUser, deleteUser, activateUser, suscriberUser} from '../controller/userAdmin.controller';
+import {signUp, login, logout, verifyUser, getAllProfession, verifySignUp, getById, updateUser, desactivateUser} from '../controller/user.controller.js';
+import {getAllUser, deleteUser, activateUser, suscriberUser} from '../controller/userAdmin.controller.js';
 
 // User controller
 app.post('/signup', signUp)

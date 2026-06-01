@@ -1,13 +1,13 @@
 import { RequestHandler } from "express";
-import { TAuthRequestHandler } from "../types";
+import type { TAuthRequestHandler } from "../types.d.ts";
 
-const createError = require('../middleware/error')
-const fs = require('fs')
-const path = require('path');
-const dirname = path.dirname(__filename);
+import createError from '../middleware/error.js';
+import fs from 'fs';
+import path from 'path';
+const dirname = import.meta.dirname;
 
 // Model
-const Users     = require('../models/user.model');
+import Users from '../models/user.model.js';
 
 // Route pour charger les nuances politiques des candidats
 export const getAllCandidats: RequestHandler = async (req, res, next) => {

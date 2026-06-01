@@ -1,0 +1,29 @@
+services:
+  proxy-server-ts-watcher:
+    build: ./docker/node
+    volumes:
+      - ./proxy-server:/proxy-server
+    working_dir: /proxy-server
+    command: npm run watch_ts
+
+  proxy-server:
+    build: ./docker/node
+    volumes:
+      - ./proxy-server:/proxy-server
+    working_dir: /proxy-server
+    ports: 
+      - ${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    networks:
+      - db
+      - exterior
+    command: npm run dev
+
+networks:
+  db:
+    internal: true
+  exterior:
+    internal: false

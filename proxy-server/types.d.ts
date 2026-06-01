@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response, RequestHandler, } from 'express';
-import type { IUser } from './models/user.model';
+import type { IUser } from './models/user.model.js';
 import { HydratedDocument } from 'mongoose';
 
 export interface IAuthBody {

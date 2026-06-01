@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import createError from '../middleware/error';
+import createError from '../middleware/error.js';
 import fs from 'fs';
 
 export const getMapByDepartement: RequestHandler = async (req, res, next) => {

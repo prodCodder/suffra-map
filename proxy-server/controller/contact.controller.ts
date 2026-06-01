@@ -1,11 +1,11 @@
-import createError from '../middleware/error';
+import createError from '../middleware/error.js';
 import nodemailer from 'nodemailer';
-import ENV from '../config/env';
+import ENV from '../config/env.js';
 import path from 'path';
 
 // Model
-import Users from '../models/user.model';
-import { TAuthRequestHandler } from '../types';
+import Users from '../models/user.model.js';
+import type { TAuthRequestHandler } from '../types.d.ts';
 
 // Route pour charger les nuances politiques des candidats
 export const postContact: TAuthRequestHandler<{id: string}, {}, {titre: string, message: string, objet: string}> = async (req, res, next) => {

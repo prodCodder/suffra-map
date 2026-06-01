@@ -1,16 +1,17 @@
-import { TAuthRequestHandler } from '../types';
+import type { TAuthRequestHandler } from '../types.d.ts';
 import { RequestHandler } from 'express';
-import ENV from '../config/env';
+import ENV from '../config/env.js';
 import bcrypt from 'bcrypt';
 import jwt, {JwtPayload} from 'jsonwebtoken';
 import fs from 'fs';
 import path from 'path';
-const dirname = path.dirname(__filename);
-import createError from '../middleware/error';
+const dirname = import.meta.dirname;
+import createError from '../middleware/error.js';
 import {Error} from 'mongoose';
+import {sendEmail} from "../services/nodemailer.js"
 
 // Model
-import Users, { IUser } from '../models/user.model';
+import Users, { IUser } from '../models/user.model.js';
 
 export const signUp: RequestHandler = async (req, res, next) => {
     try {
@@ -33,8 +34,8 @@ export const signUp: RequestHandler = async (req, res, next) => {
 
         // Envoie d'un mail de confirmation
         console.log("Tentative d'envoi de mail à :", user.email)
-        console.log({token})
-        // await sendEmail(user, token)
+        // console.log({token})
+        await sendEmail(user, token)
 
         res.status(200).json({
             message: 'user created',

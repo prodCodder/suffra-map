@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
-import ENV from '../config/env';
-import { IUser } from '../models/user.model';
+import ENV from '../config/env.js';
+import { IUser } from '../models/user.model.js';
 
 const transporter = nodemailer.createTransport({
     // Configuration du serveur SMTP de Gmail

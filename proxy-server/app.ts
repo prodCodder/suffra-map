@@ -1,22 +1,20 @@
 import express, { Request, Response, NextFunction } from 'express';
-import connectMongoDB from './config/dbMongo';
+import connectMongoDB from './config/dbMongo.js';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-import ENV from './config/env';
+import ENV from './config/env.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const dirname = path.dirname(__filename);
+const dirname = import.meta.dirname;
 
 const app = express();
 
 // IMPORT ROUTER
-import elecRouter from './router/election.router';
-import mapRouter from './router/map.router';
-import userRouter from './router/user.router';
-import contactRouter from './router/contact.router';
+import elecRouter from './router/election.router.js';
+import mapRouter from './router/map.router.js';
+import userRouter from './router/user.router.js';
+import contactRouter from './router/contact.router.js';
 
 
 // CONNEXION MONGO

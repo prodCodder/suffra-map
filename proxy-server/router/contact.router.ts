@@ -1,13 +1,13 @@
 // importation du module express
 import express, {Response, NextFunction} from 'express';
-import { TAuthRequestHandler } from '../types';
+import type { TAuthRequestHandler } from '../types.d.ts';
 // Création  d'un router express
 const app = express.Router();
-import verifyToken from '../middleware/auth';
-import contactLimiter from '../middleware/limit';
+import verifyToken from '../middleware/auth.js';
+import contactLimiter from '../middleware/limit.js';
 import { body, validationResult } from "express-validator";
 
-import { postContact } from '../controller/contact.controller';
+import { postContact } from '../controller/contact.controller.js';
 
 app.post(
     '/message/:id', 

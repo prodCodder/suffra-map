@@ -1,9 +1,9 @@
 
-import createError from '../middleware/error';
+import createError from '../middleware/error.js';
 
 // Model
-import Users, { IERoles } from '../models/user.model';
-import { TAuthRequestHandler } from '../types';
+import Users, { IERoles } from '../models/user.model.js';
+import type { TAuthRequestHandler } from '../types.d.ts';
 
 export const getAllUser: TAuthRequestHandler<{id: string}> = async(req, res, next) => {
     try {

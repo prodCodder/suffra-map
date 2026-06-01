@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectMongoDB = (mongoHost: string, dbName: string, username: string, password: string) => {
     const fullMongoURI = `mongodb://${username}:${password}@${mongoHost}:27017/${dbName}`

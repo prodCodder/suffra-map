@@ -8,7 +8,7 @@ http:
   url: "{{api_url}}/api/users/signup/verify/:token"
   params:
     - name: token
-      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMTVmZGUxODgwMzcyYjk0MjZmNGFiYSIsImlhdCI6MTc3OTgyNjE0NSwiZXhwIjoxNzc5ODI2NDQ1fQ.69rWb_HKbFrd1rgVLClM9j0Aw1ZTp0Q-U5LVgVCDUcs
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMDMwYTllOWM2ZDEzZTQwYWYwZTYxMCIsImlhdCI6MTc3ODU4NDIyMiwiZXhwIjoxNzc4NTg0NTIyfQ.9sRXA92G8KGa28G2OPQ4Ubv9snMJExtOKdK30YrTp0g
       type: path
   auth: inherit
 

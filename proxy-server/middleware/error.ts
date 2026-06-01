@@ -1,4 +1,4 @@
-import { TCustomHttpError } from "../types";
+import type { TCustomHttpError } from "../types.d.ts";
 
 // Function pour générer des messages d'erreur plus clairs
 const createError = (status: number, message: string, details = null) => {

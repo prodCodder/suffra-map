@@ -1,7 +1,7 @@
-import { TAuthRequestHandler } from '../types';
-import { IERoles } from '../models/user.model';
+import type { TAuthRequestHandler } from '../types.d.ts';
+import { IERoles } from '../models/user.model.js';
 
-import createError from './error';
+import createError from './error.js';
 
 const verifyAdmin: TAuthRequestHandler = async (req, res, next) => {
     // Vérifier si l'utilisateur est connecté

@@ -2,7 +2,7 @@
 import express from 'express';
 // Création  d'un router express
 const app = express.Router();
-import verifyToken from '../middleware/auth';
+import verifyToken from '../middleware/auth.js';
 
 import {
     getAllCandidats, 
@@ -13,7 +13,7 @@ import {
     getResultElectionConnected, 
     getResultElectionMember, 
     getResultElectionNoConnected
-} from '../controller/election.controller';
+} from '../controller/election.controller.js';
 
 app.get('/candidats', getAllCandidats)
 app.get('/allname/offline/', getAllNameElectionsNoConnected)

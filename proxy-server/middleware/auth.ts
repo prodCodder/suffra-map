@@ -1,8 +1,8 @@
 import { RequestHandler } from 'express';
 import jwt, {VerifyCallback, VerifyErrors, JwtPayload} from 'jsonwebtoken';
-import ENV from '../config/env';
-import createError from './error';
-import Users from '../models/user.model';
+import ENV from '../config/env.js';
+import createError from './error.js';
+import Users from '../models/user.model.js';
 
 const verifyToken: RequestHandler = (req, res, next) => {
     // Récupère le jeton toekn JWT à partir des cookies de la requête
