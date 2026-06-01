@@ -1,7 +1,9 @@
+import type { TCustomHttpError } from "../types.d.ts";
+
 // Function pour générer des messages d'erreur plus clairs
-const createError = (status, message, details = null) => {
+const createError = (status: number, message: string, details = null) => {
     // Créer une nouvelle instance d'erreur vide
-    const error = new Error(message);
+    const error: TCustomHttpError = new Error(message);
 
     // Défini le code d'état de l'erreur 
     // en fonction des paramètres de la fonction
@@ -10,4 +12,4 @@ const createError = (status, message, details = null) => {
     return error
 }
 
-module.exports = createError;
+export default createError;

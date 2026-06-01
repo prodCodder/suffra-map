@@ -1,11 +1,11 @@
 
-const createError = require('../middleware/error')
-const verifyAdmin = require('../middleware/authAdmin')
+import createError from '../middleware/error.js';
 
 // Model
-const Users     = require('../models/user.model');
+import Users, { IERoles } from '../models/user.model.js';
+import type { TAuthRequestHandler } from '../types.d.ts';
 
-const getAllUser = async(req, res, next) => {
+export const getAllUser: TAuthRequestHandler<{id: string}> = async(req, res, next) => {
     try {
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
@@ -13,12 +13,12 @@ const getAllUser = async(req, res, next) => {
 
         const result = await Users.find();
         if(result) res.status(200).json(result);
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const activateUser = async (req, res, next) => {
+export const activateUser: TAuthRequestHandler<{id: string}>= async (req, res, next) => {
     try {
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
@@ -31,12 +31,12 @@ const activateUser = async (req, res, next) => {
             {new: true}
         );
         res.status(200).json("Compte de "+ user.username +" activé")
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const suscriberUser = async (req, res, next) => {
+export const suscriberUser: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         // Trouver si l'utilisateur existe 
         const user = await Users.findById(req.params.id);
@@ -45,18 +45,16 @@ const suscriberUser = async (req, res, next) => {
         // Mettre à jour l'état activé de l'utilisateur
         await Users.findByIdAndUpdate(
             user.id, 
-            {role: subscriber}, 
-            {isSuscriber: true}, 
-            {isActive: true}, 
-            {new: true}
+            {role: IERoles.subscriber}, 
+            {isSuscriber: true, isActive: true}
         );
         res.status(200).json("Compte de "+ user.username +" activé")
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))
     }
 }
 
-const deleteUser = async (req, res, next) => {
+export const deleteUser: TAuthRequestHandler<{id: string}> = async (req, res, next) => {
     try {
         // Trouvez si l'utilisateur existe 
         const userReq = await Users.findById(req.params.id);
@@ -66,14 +64,7 @@ const deleteUser = async (req, res, next) => {
         const checkUser = await Users.findByIdAndDelete(req.params.id);
         if(checkUser) return res.status(200).json('User delete');
 
-    } catch(error) {
+    } catch(error: any) {
         next(createError(500, error.message))        
     }
-}
-
-module.exports = {
-    getAllUser,
-    activateUser,
-    deleteUser,
-    suscriberUser
 }

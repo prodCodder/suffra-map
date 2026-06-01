@@ -35,6 +35,7 @@ proxy-server/parse/
 proxy-server/files/
 proxy-server/server-api.js
 proxy-server/json/
+proxy-server/**/*.js
 
 # --- IDE / SYSTEM FILES ---
 .vscode/

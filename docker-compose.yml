@@ -10,6 +10,7 @@ services:
       - .env
     environment:
       VITE_API_URL: ${DOMAIN_APP_BACK}
+      HTTP_CLIENT_PORT: ${HTTP_CLIENT_PORT}
     networks:
       - exterior
     command: npm run dev -- --host --port ${HTTP_CLIENT_PORT}

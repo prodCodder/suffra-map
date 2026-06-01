@@ -1,12 +1,13 @@
 // importation du module express
-const express = require('express');
+import express, {Response, NextFunction} from 'express';
+import type { TAuthRequestHandler } from '../types.d.ts';
 // Création  d'un router express
 const app = express.Router();
-const verifyToken = require('../middleware/auth')
-const contactLimiter = require('../middleware/limit')
-const { body, validationResult } = require("express-validator");
+import verifyToken from '../middleware/auth.js';
+import contactLimiter from '../middleware/limit.js';
+import { body, validationResult } from "express-validator";
 
-const ContactController = require('../controller/contact.controller')
+import { postContact } from '../controller/contact.controller.js';
 
 app.post(
     '/message/:id', 
@@ -17,13 +18,13 @@ app.post(
         body("objet").trim().notEmpty().withMessage("Objet requis."),
         body("message").trim().isLength({ min: 10 }).withMessage("Message trop court."),
     ],
-    (req, res, next) => {
+    <TAuthRequestHandler>((req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
         return res.status(400).json({ error: errors.array() });
         }
         next();
-    },
-    ContactController.postContact)
+    }),
+    postContact)
 
-module.exports = app;
+export default app;

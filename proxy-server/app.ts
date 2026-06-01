@@ -1,18 +1,20 @@
-const express = require('express');
-const connectMongoDB = require('./config/dbMongo');
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const path = require('path');
-const dirname = path.dirname(__filename);
+import express, { Request, Response, NextFunction } from 'express';
+import connectMongoDB from './config/dbMongo.js';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import path from 'path';
 
-const ENV = require('./config/env');
+import ENV from './config/env.js';
+
+const dirname = import.meta.dirname;
+
 const app = express();
 
 // IMPORT ROUTER
-const elecRouter = require('./router/election.router')
-const mapRouter = require('./router/map.router')
-const userRouter = require('./router/user.router')
-const contactRouter = require('./router/contact.router')
+import elecRouter from './router/election.router.js';
+import mapRouter from './router/map.router.js';
+import userRouter from './router/user.router.js';
+import contactRouter from './router/contact.router.js';
 
 
 // CONNEXION MONGO
@@ -27,14 +29,14 @@ app.use('/uploads', express.static(path.join(dirname, 'uploads')));
 app.use(express.json());
 app.use(cookieParser());
 
-// URLS API PREFIX
+// // URLS API PREFIX
 app.use("/api/elections", elecRouter)
 app.use("/api/map", mapRouter)
 app.use("/api/users", userRouter)
 app.use("/api/contact", contactRouter)
 
 // MIDDLEWARES DE GESTION D'ERROR
-app.use((error, req, res, next) => {
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
     const status = error.status || 500;
     const message = error.message || "Une erreur est survenue"
     const details = error.details || null;
@@ -48,4 +50,4 @@ app.use((error, req, res, next) => {
     })
 })
 
-module.exports = app;
+export default app;

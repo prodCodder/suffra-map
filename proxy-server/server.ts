@@ -1,5 +1,5 @@
-const app = require('./app');
-const ENV = require('./config/env')
+import app from "./app.js";
+import ENV from "./config/env.js";
 
 // PORT
 const HTTP_SERVER_PORT = ENV.HTTP_SERVER_PORT || 3001;

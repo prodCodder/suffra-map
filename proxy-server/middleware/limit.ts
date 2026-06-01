@@ -1,4 +1,4 @@
-const rateLimit = require("express-rate-limit");
+import rateLimit from "express-rate-limit";
 
 const contactLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
@@ -8,4 +8,4 @@ const contactLimiter = rateLimit({
     },
 });
 
-module.exports = contactLimiter
+export default  contactLimiter

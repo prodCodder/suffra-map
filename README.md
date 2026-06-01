@@ -4,6 +4,7 @@
 To start project locally :
  - Docker
  - Docker compose
+ - tmux
 
 ## Quick start
 
@@ -11,14 +12,43 @@ To start project locally :
 ```bash
 docker compose run proxy-server npm install
 docker compose run client npm install
-docker compose down
+```
+
+Then kill orphan containers :
+```bash
+docker compose down --remove-orphans
 ```
 
 ### Set env configuration
-Copy `.env.example` into `.env` the modify values if needed
+Copy `.env.example` into `.env` then modify values if you want
 
-### Start project
+### Run and down project (developpement)
+```bash
+./dev-up.sh
+```
+
+Then you can look at server typescript and execution logs with :
+```bash
+./dev-server-logs.sh
+```
+
+And look at client logs with :
+```bash
+docker compose logs -f client
+```
+
+To down the project :
+```bash
+./dev-down.sh
+```
+
+### Run and down project (production)
 ```bash
 docker compose up -d
 ```
 Then connect to localhost, with port configured in .env file (default 3000)
+
+Down the project with :
+```bash
+docker compose down
+```

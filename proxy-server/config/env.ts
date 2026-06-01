@@ -1,7 +1,7 @@
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 
-const ENV = {
+const ENV: any = {
     HTTP_SERVER_PORT:  process.env.HTTP_SERVER_PORT,
     DOMAIN_APP_FRONT:  process.env.DOMAIN_APP_FRONT,
     DOMAIN_APP_BACK:   process.env.DOMAIN_APP_BACK,
@@ -16,4 +16,4 @@ const ENV = {
     EMAIL_SENDER_PASS: process.env.EMAIL_SENDER_PASS,
 }
 
-module.exports = ENV;
+export default ENV;
