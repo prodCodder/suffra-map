@@ -1,5 +1,13 @@
 # Changelog
 
+## branch feature/election_models
+### Add
+ - All and complete models for elections :
+   - elections
+   - polling_stations_results
+   - (sub model) election_choices
+   - polling_stations_geos
+
 ## branch feature/add_typescript
 ### Add
  - Typescript support :

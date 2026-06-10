@@ -15,6 +15,7 @@ services:
       - ${HTTP_SERVER_PORT}:${HTTP_SERVER_PORT}
     depends_on:
       - mongodb
+      - proxy-server-ts-watcher
     env_file:
       - .env
     networks:
