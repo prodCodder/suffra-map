@@ -1,6 +1,6 @@
 # Changelog
 
-## branch feature/election_models
+## branch feature/data_models
 ### Add
  - All and complete models for elections :
    - elections
