@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx tsc && node server.js",
     "dev": "node --watch server.js",
-    "watch_ts": "npx tsc -w" 
+    "watch_ts": "npx tsc -w",
+    "cmd": "npx tsc && node console.js"
   },
   "keywords": [],
   "author": "",

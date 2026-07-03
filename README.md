@@ -52,3 +52,18 @@ Down the project with :
 ```bash
 docker compose down
 ```
+
+## Command Execution
+
+To execute commands:
+
+```bash
+# In proxy-server/ folder
+npm run cmd <command> <opt1> <opt2>
+```
+
+Or if using Docker:
+
+```bash
+docker compose exec proxy-server npm run cmd <command> <opt1> <opt2>
+```

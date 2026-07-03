@@ -2,25 +2,26 @@ import { RequestHandler } from "express";
 import type { TAuthRequestHandler } from "../types.d.ts";
 
 import createError from '../middleware/error.js';
-import fs from 'fs';
+import fs from 'fs/promises';
 import path from 'path';
 const dirname = import.meta.dirname;
 
 // Model
 import Users from '../models/user.model.js';
+import { fileExists } from "../utils.js";
 
 // Route pour charger les nuances politiques des candidats
 export const getAllCandidats: RequestHandler = async (req, res, next) => {
     const filepath = path.resolve(dirname, '../parse/json/nuance_politique.json');
       
-    if (!fs.existsSync(filepath)) {
+    if (!(await fileExists(filepath))) {
     return res.status(404).json({ 
             error: `Fichier nuance_politique.json introuvable.` 
         });
     }
 
     try {
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
         res.json(Object.fromEntries(data));
     } catch (error: any) {
@@ -34,13 +35,13 @@ export const getAllNameElectionsNoConnected: RequestHandler = async (req, res, n
     try {
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
 
-        if (!fs.existsSync(filepath)) {
+        if (!(await fileExists(filepath))) {
             return res.status(404).json({ 
                     error: `Fichier all_elections.json est introuvable.` 
                 });
         }
 
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         const data = JSON.parse(raw);
         const filtered = data.filter((election: any) => election.idName === 'presi2022')
         res.json(filtered);
@@ -62,13 +63,13 @@ export const getAllNameElectionsConnected: TAuthRequestHandler<{id: string}> = a
         if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
-        if (!fs.existsSync(filepath)) {
+        if (!(await fileExists(filepath))) {
         return res.status(404).json({ 
                 error: `Fichier all_elections.json est introuvable.` 
             });
         }
 
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         const data = JSON.parse(raw);
         const filtered = data.filter((election: any) => election.type == 'presi')
         res.json(filtered);
@@ -91,13 +92,13 @@ export const getAllNameElectionsMember: TAuthRequestHandler<{id: string}> = asyn
         if( user._id.toString() !== req.body.user.id.toString()) return next(createError(403, 'Accès refusé'))
         
         const filepath = path.resolve(dirname, '../parse/json/all_elections.json');
-        if (!fs.existsSync(filepath)) {
+        if (!(await fileExists(filepath))) {
         return res.status(404).json({ 
                 error: `Fichier all_elections.json est introuvable.` 
             });
         }
 
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         const data = JSON.parse(raw);
         res.json(data);
         
@@ -117,12 +118,12 @@ export const getElectionByBv: RequestHandler<{bureauId: string, slug: string}> =
 
     const filepath = `./parse/json/${slug}/resultats_${departement}.json`;
 
-    if (!fs.existsSync(filepath)) {
+    if (!(await fileExists(filepath))) {
     return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
     }
 
     try {
-    const raw = fs.readFileSync(filepath, 'utf-8');
+    const raw = await fs.readFile(filepath, 'utf-8');
     const data = JSON.parse(raw);
 
     // ✅ Vérifie si le bureauId est bien présent
@@ -149,12 +150,12 @@ export const getResultElectionNoConnected: RequestHandler = async (req, res, nex
 
     const filepath = `./parse/json/presi2022/resultats_${departement}.json`;
 
-    if (!fs.existsSync(filepath)) {
+    if (!(await fileExists(filepath))) {
         return res.status(404).json({ error: `Fichier ${departement} introuvable.` });
     }
     
     try {
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
         data = data.filter(([_, val]: any[]) => val.meta["Code du département"] === departement);
         res.json(Object.fromEntries(data));
@@ -181,15 +182,15 @@ export const getResultElectionConnected: TAuthRequestHandler<{id: string}> = asy
         const filepath2017 = `./parse/json/presi2017/resultats_${departement}.json`;
         const filepath2022 = `./parse/json/presi2022/resultats_${departement}.json`;
 
-        if (!fs.existsSync(filepath2012) || 
-            !fs.existsSync(filepath2017) || 
-            !fs.existsSync(filepath2022) ) {
+        if (!(await fileExists(filepath2012)) || 
+            !(await fileExists(filepath2017)) || 
+            !(await fileExists(filepath2022)) ) {
             return res.status(404).json({ error: `Fichier élections presi départements ${departement} introuvables.` });
         }
     
-        const raw2012 = fs.readFileSync(filepath2012, 'utf-8');
-        const raw2017 = fs.readFileSync(filepath2017, 'utf-8');
-        const raw2022 = fs.readFileSync(filepath2022, 'utf-8');
+        const raw2012 = await fs.readFile(filepath2012, 'utf-8');
+        const raw2017 = await fs.readFile(filepath2017, 'utf-8');
+        const raw2022 = await fs.readFile(filepath2022, 'utf-8');
 
         // Convertir chaque fichier JSON en objets
         const data2012 = JSON.parse(raw2012);
@@ -235,12 +236,12 @@ export const getResultElectionMember: TAuthRequestHandler<{slug: string, id: str
 
     const filepath = `./parse/json/${slug}/resultats_${departement}.json`;
     
-    if (!fs.existsSync(filepath)) {
+    if (!(await fileExists(filepath))) {
         return res.status(404).json({ error: `Fichier ${slug} ${departement} introuvable.` });
     }
     
     try {
-        const raw = fs.readFileSync(filepath, 'utf-8');
+        const raw = await fs.readFile(filepath, 'utf-8');
         let data = Object.entries(JSON.parse(raw));
     
         if (departement) {
